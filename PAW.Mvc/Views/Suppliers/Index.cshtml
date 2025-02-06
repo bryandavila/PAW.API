@@ -1,0 +1,22 @@
+﻿@model IEnumerable<PAW.Models.Suppliers>
+@{
+    ViewData["Title"] = "Suppliers";
+}
+
+<h1>Suppliers</h1>
+
+<div class="container">
+    @foreach (var s in Model)
+    {
+        <ul>
+            <li>@s.SupplierID</li>
+            <li>@s.SupplierName</li>
+            <li>@s.ContactName</li>
+            <li>@s.ContactTitle</li>
+            <li>@s.Phone</li>
+            <li>@s.Address</li>
+            <li>@s.City</li>
+            <li>@s.Country</li>
+        </ul>
+    }
+</div>

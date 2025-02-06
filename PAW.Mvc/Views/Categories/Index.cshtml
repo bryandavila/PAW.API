@@ -1,0 +1,17 @@
+﻿@model IEnumerable<PAW.Models.Categories>
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h1>Categories</h1>
+
+<div class="container">
+    @foreach (var c in Model)
+    {
+        <ul>
+            <li>@c.CategoryId</li>
+            <li>@c.CategoryName</li>
+            <li>@c.Description</li>
+        </ul>
+    }
+</div>
