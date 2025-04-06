@@ -4,6 +4,7 @@ using PAW.Repository.Approvals;
 using PAW.Repository.Products;
 using PAW.Repository.Roles;
 using PAW.API.Controllers;
+using PAW.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -15,6 +16,7 @@ builder.Services.AddScoped<IApprovalHandler<HandlerBase>, PendingHandler>();
 builder.Services.AddScoped<IApprovalHandler<HandlerBase>, ArchivedHandler>();
 builder.Services.AddScoped<IApprovalHandler<HandlerBase>, InProgressHandler>();
 builder.Services.AddScoped<ITicketApprovalProcess, TicketApprovalProcess>();
+builder.Services.AddScoped<IProductGenerationService, ProductGenerationService>();
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IComponentRepository, ComponentRepository>();
