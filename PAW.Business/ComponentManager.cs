@@ -2,7 +2,7 @@
 using PAW.Business.Factory;
 using PAW.Models;
 using PAW.Models.CustomModels;
-using PAW.Repositories;
+using PAW.Repository;
 using SQLitePCL;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
 ﻿using PAW.Models;
-using PAW.Repositories;
+using PAW.Repository;
 using PAW.Services;
 
 namespace PAW.Business

@@ -73,6 +73,8 @@ public partial class Product
     /// This value can be null if the modifier is not recorded.
     /// </remarks>
     public string? ModifiedBy { get; set; }
+    public decimal UnitPrice { get; set; }
+
 
     /// <summary>
     /// Gets or sets the category associated with the product.
