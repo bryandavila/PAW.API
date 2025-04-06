@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using PAW.Business.Factory;
 using PAW.Models;
-using PAW.Models.CustomModels;
-using PAW.Repository;
-using SQLitePCL;
+using PAW.Repository.Products;
+using PAW.Models.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;

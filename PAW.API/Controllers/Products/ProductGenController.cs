@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PAW.Models.Products;
 using PAW.Services;
+using PAW.Models.Products;
 
 namespace PAW.API.Controllers.Products
 {

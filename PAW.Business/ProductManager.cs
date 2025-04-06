@@ -1,6 +1,8 @@
 ﻿using PAW.Models;
 using PAW.Repository;
 using PAW.Services;
+using PAW.Models.Products;
+
 
 namespace PAW.Business
 {
