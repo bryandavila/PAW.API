@@ -1,6 +1,8 @@
 ﻿using PAW.Data.MSSQL.ProductDB;
 using PAW.Models.Products;
 using System.Linq;
+using Task = System.Threading.Tasks.Task;
+
 
 namespace PAW.Repository.Products;
 
@@ -36,6 +38,10 @@ public interface IProductRepository
     /// <param name="entities">The collection of Product entities to be updated.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a boolean indicating success.</returns>
     Task<bool> UpdateManyAsync(IEnumerable<Product> entities);
+    Task<IEnumerable<Product>> GetAllProductsAsync();
+    Task<Product> FindAsync(int id);
+    Task<Product> GetHighCostByIdAsync(int id, decimal value);
+
 }
 
 /// <summary>
@@ -73,4 +79,34 @@ public class ProductRepository() : ProductsRepositoryBase<Product>, IProductRepo
         var categories = await ReadAsync();
         return categories.Where(predicate);
     }
+
+    public async Task<IEnumerable<Product>> GetAllProductsAsync()
+    {
+        return await Task.FromResult(new List<Product>
+    {
+        new Product { ProductId = 1, Name = "Producto A", UnitPrice = 500 },
+        new Product { ProductId = 2, Name = "Producto B", UnitPrice = 1000 }
+    });
+    }
+
+    public async Task<Product> FindAsync(int id)
+    {
+        return await Task.FromResult(new Product
+        {
+            ProductId = id,
+            Name = $"Producto {id}",
+            UnitPrice = 500
+        });
+    }
+
+    public async Task<Product> GetHighCostByIdAsync(int id, decimal value)
+    {
+        return await Task.FromResult(new Product
+        {
+            ProductId = id,
+            Name = $"High Cost {id}",
+            UnitPrice = value
+        });
+    }
+
 }

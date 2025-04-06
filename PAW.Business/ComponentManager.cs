@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
 using PAW.Business.Factory;
-using PAW.Models;
 using PAW.Repository.Products;
 using PAW.Models.Components;
 using System;

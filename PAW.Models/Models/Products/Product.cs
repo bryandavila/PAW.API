@@ -90,4 +90,8 @@ public partial class Product
     /// Gets or sets the supplier associated with the product.
     /// </summary>
     public virtual Supplier? Supplier { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public bool IsDirty { get; set; }
+    public DateTime LastRetreived { get; set; }
+
 }

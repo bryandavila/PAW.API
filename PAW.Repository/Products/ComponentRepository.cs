@@ -1,6 +1,8 @@
 ﻿using PAW.Data.MSSQL.ProductDB;
 using PAW.Models.Products;
 using System.Linq;
+using Task = System.Threading.Tasks.Task;
+
 
 namespace PAW.Repository.Products;
 
@@ -36,6 +38,8 @@ public interface IComponentRepository
     /// <param name="entities">The collection of Component entities to be updated.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a boolean indicating success.</returns>
     Task<bool> UpdateManyAsync(IEnumerable<Component> entities);
+    Task<IEnumerable<PAW.Models.Components.Component>> GetAllComponentsAsync();
+
 }
 
 /// <summary>
@@ -72,5 +76,15 @@ public class ComponentRepository() : ProductsRepositoryBase<Component>, ICompone
 
         var categories = await ReadAsync();
         return categories.Where(predicate);
+    }
+
+    public async Task<IEnumerable<PAW.Models.Components.Component>> GetAllComponentsAsync()
+    {
+        return await Task.FromResult(new List<PAW.Models.Components.Component>
+    {
+        new PAW.Models.Components.Component { Name = "image", Url = "url1", Data = null },
+        new PAW.Models.Components.Component { Name = "media", Url = "url2", Data = null },
+        new PAW.Models.Components.Component { Name = "chart", Url = "url3", Data = null }
+    });
     }
 }

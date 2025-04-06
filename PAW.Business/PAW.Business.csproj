@@ -10,6 +10,7 @@
 		<ProjectReference Include="..\PAW.Models\PAW.Models.csproj" />
 		<ProjectReference Include="..\PAW.Data\PAW.Data.csproj" />
 		<ProjectReference Include="..\PAW.Repository\PAW.Repository.csproj" />
+		<ProjectReference Include="..\PAW.Services\PAW.Services.csproj" />
 		<PackageReference Include="Bogus" Version="35.6.2" />
 	</ItemGroup>
 
