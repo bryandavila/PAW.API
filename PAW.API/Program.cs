@@ -8,9 +8,9 @@ using PAW.Services;
 using PAW.Architecture.Providers;
 using APW.Architecture;
 
-
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
+
+builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -22,7 +22,6 @@ builder.Services.AddScoped<ITicketApprovalProcess, TicketApprovalProcess>();
 builder.Services.AddScoped<IProductGenerationService, ProductGenerationService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IRestProvider, RestProvider>();
-
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IComponentRepository, ComponentRepository>();
@@ -36,11 +35,8 @@ builder.Services.AddScoped<IUserActionRepository, UserActionRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 
-
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -49,5 +45,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapControllers();
 app.Run();

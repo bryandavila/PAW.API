@@ -19,8 +19,9 @@ public class ProductGenController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        return View("ProductGen");
     }
+
 
     [HttpPost]
     public IActionResult GenerateProducts(int count = 5)

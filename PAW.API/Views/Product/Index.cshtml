@@ -1,20 +1,29 @@
 ﻿@{
-    ViewData["Title"] = "Lista de Productos";
+    ViewData["Title"] = "Lista de productos";
 }
 
-<h2>Lista de Productos</h2>
+<h2>Lista de productos</h2>
 
-<button id="loadProducts" class="btn btn-primary">Cargar Productos Generados</button>
+<button id="loadProducts" class="btn btn-primary">Cargar productos generados</button>
 
 <div id="productTableContainer"></div>
 
 @section Scripts {
     <script>
         document.getElementById("loadProducts").addEventListener("click", function () {
-            fetch("/Product/LoadGeneratedProducts")
-                .then(res => res.text())
+            fetch("/ProductGen/GetFivePartial")
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error("Error en la solicitud: " + res.status);
+                    }
+                    return res.text();
+                })
                 .then(html => {
                     document.getElementById("productTableContainer").innerHTML = html;
+                })
+                .catch(error => {
+                    console.error("Error al cargar productos:", error);
+                    alert("No se pudieron cargar los productos.");
                 });
         });
     </script>
