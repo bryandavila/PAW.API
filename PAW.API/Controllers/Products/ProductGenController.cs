@@ -5,18 +5,24 @@ using PAW.Models.Products;
 
 namespace PAW.API.Controllers.Products
 {
-    public class ProductGenController(IProductGenerationService service) : Controller
+    public class ProductGenController : Controller
     {
-        [HttpGet("/products/generate")]
-        public IActionResult GenerateProducts()
+        private readonly IProductGenerationService _productGenerationService;
+
+        public ProductGenController(IProductGenerationService productGenerationService)
+        {
+            _productGenerationService = productGenerationService;
+        }
+
+        public IActionResult Index()
         {
             return View();
         }
 
-        [HttpGet("/products/generate/ajax")]
-        public IActionResult GetProductsAjax(int count = 5)
+        [HttpPost]
+        public IActionResult GenerateProducts(int count = 5)
         {
-            var products = service.Generate(count);
+            var products = _productGenerationService.Generate(count);
             return Json(products);
         }
     }

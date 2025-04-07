@@ -1,0 +1,62 @@
+﻿@model IEnumerable<PAW.Models.Products.Product>
+
+<h2>Generador de Productos</h2>
+
+<button id="generateVanilla">Generar con JS Vanilla</button>
+<button id="generateAjax">Generar con Ajax</button>
+
+<table id="productsTable" border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Los productos generados se agregarán aquí -->
+    </tbody>
+</table>
+
+<script>
+    document.getElementById('generateVanilla').addEventListener('click', function () {
+        fetch('/ProductGen/GenerateProducts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ count: 5 })
+        })
+        .then(response => response.json())
+        .then(data => {
+            updateTable(data);
+        });
+    });
+
+    document.getElementById('generateAjax').addEventListener('click', function () {
+        $.ajax({
+            url: '/ProductGen/GenerateProducts',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ count: 5 }),
+            success: function (data) {
+                updateTable(data);
+            }
+        });
+    });
+
+    function updateTable(products) {
+        const tbody = document.querySelector('#productsTable tbody');
+        tbody.innerHTML = '';
+        products.forEach(product => {
+            const row = `<tr>
+                <td>${product.id}</td>
+                <td>${product.name}</td>
+                <td>${product.description}</td>
+                <td>${product.price}</td>
+            </tr>`;
+            tbody.innerHTML += row;
+        });
+    }
+</script>
