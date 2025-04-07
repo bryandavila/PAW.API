@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Lista de Productos";
+}
+
+<h2>Lista de Productos</h2>
+
+<button id="loadProducts" class="btn btn-primary">Cargar Productos Generados</button>
+
+<div id="productTableContainer"></div>
+
+@section Scripts {
+    <script>
+        document.getElementById("loadProducts").addEventListener("click", function () {
+            fetch("/Product/LoadGeneratedProducts")
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById("productTableContainer").innerHTML = html;
+                });
+        });
+    </script>
+}
