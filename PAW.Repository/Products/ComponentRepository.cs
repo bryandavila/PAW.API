@@ -1,8 +1,7 @@
 ﻿using PAW.Data.MSSQL.ProductDB;
-using PAW.Models.Products;
+using PAW.Models.Components;
 using System.Linq;
 using Task = System.Threading.Tasks.Task;
-
 
 namespace PAW.Repository.Products;
 
@@ -11,35 +10,11 @@ namespace PAW.Repository.Products;
 /// </summary>
 public interface IComponentRepository
 {
-    /// <summary>
-    /// Retrieves a collection of Component entities asynchronously based on their IDs.
-    /// </summary>
-    /// <param name="ids">A collection of category IDs.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a collection of Component entities.</returns>
     Task<IEnumerable<Component>> GetAsync(IEnumerable<int> ids);
-
-    /// <summary>
-    /// Saves a Component entity asynchronously.
-    /// </summary>
-    /// <param name="entity">The Component entity to be saved.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a boolean indicating success.</returns>
     Task<bool> SaveAsync(Component entity);
-
-    /// <summary>
-    /// Deletes an existing Component entity asynchronously.
-    /// </summary>
-    /// <param name="entity">The Component entity to be deleted.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a boolean indicating success.</returns>
     Task<bool> DeleteAsync(Component entity);
-
-    /// <summary>
-    /// Updates multiple Component entities asynchronously.
-    /// </summary>
-    /// <param name="entities">The collection of Component entities to be updated.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a boolean indicating success.</returns>
     Task<bool> UpdateManyAsync(IEnumerable<Component> entities);
-    Task<IEnumerable<PAW.Models.Components.Component>> GetAllComponentsAsync();
-
+    Task<IEnumerable<Component>> GetAllComponentsAsync();
 }
 
 /// <summary>
@@ -47,11 +22,6 @@ public interface IComponentRepository
 /// </summary>
 public class ComponentRepository() : ProductsRepositoryBase<Component>, IComponentRepository
 {
-    /// <summary>
-    /// Saves a Component entity asynchronously. If the entity exists, it updates it; otherwise, it creates a new one.
-    /// </summary>
-    /// <param name="entity">The Component entity to be saved.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a boolean indicating success.</returns>
     public async Task<bool> SaveAsync(Component entity)
     {
         bool exists = await ExistsAsync(entity);
@@ -60,11 +30,6 @@ public class ComponentRepository() : ProductsRepositoryBase<Component>, ICompone
         return await CreateAsync(entity);
     }
 
-    /// <summary>
-    /// Retrieves a collection of Component entities asynchronously based on their IDs.
-    /// </summary>
-    /// <param name="ids">A collection of component IDs.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a collection of Component entities.</returns>
     public async Task<IEnumerable<Component>> GetAsync(IEnumerable<int> ids)
     {
         if (ids != null && ids.Count() == 1)
@@ -74,17 +39,17 @@ public class ComponentRepository() : ProductsRepositoryBase<Component>, ICompone
             ? x => x.Id > 0
             : x => ids.Contains((int)x.Id);
 
-        var categories = await ReadAsync();
-        return categories.Where(predicate);
+        var components = await ReadAsync();
+        return components.Where(predicate);
     }
 
-    public async Task<IEnumerable<PAW.Models.Components.Component>> GetAllComponentsAsync()
+    public async Task<IEnumerable<Component>> GetAllComponentsAsync()
     {
-        return await Task.FromResult(new List<PAW.Models.Components.Component>
-    {
-        new PAW.Models.Components.Component { Name = "image", Url = "url1", Data = null },
-        new PAW.Models.Components.Component { Name = "media", Url = "url2", Data = null },
-        new PAW.Models.Components.Component { Name = "chart", Url = "url3", Data = null }
-    });
+        return await Task.FromResult(new List<Component>
+        {
+            new ComponentImage { Name = "image", Url = "url1", Data = null },
+            new ComponentMedia { Name = "media", Url = "url2", Data = null },
+            new ComponentChart { Name = "chart", Url = "url3", Data = null }
+        });
     }
 }

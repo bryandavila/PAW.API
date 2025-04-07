@@ -1,7 +1,7 @@
 ﻿using PAW.Business.Factory;
 using PAW.Models.Components;
-using PAW.Models.Products;
 using PAW.Repository.Products;
+using ComponentModel = PAW.Models.Components.Component;
 
 namespace PAW.Business;
 
@@ -16,11 +16,12 @@ public class ComponentManager
         _componentRepository = componentRepository;
     }
 
-    public async Task<IEnumerable<Component>> GetComponentsAsync()
+    public async Task<IEnumerable<ComponentModel>> GetComponentsAsync()
     {
         var components = await _componentRepository.GetAsync(null);
 
-        Component determineComponent(Component c) {
+        ComponentModel determineComponent(ComponentModel c)
+        {
             return c.Name.ToLower() switch
             {
                 "image" => _componentFactory.CreateComponent<ComponentImage>(),
@@ -31,12 +32,13 @@ public class ComponentManager
 
         components.Select(determineComponent)
             .ToList()
-            .ForEach(c => {
+            .ForEach(c =>
+            {
                 _componentFactory.SetProperty(c, "", null)
                     .SetProperty2()
                     .SetProperty3();
-                });
-    
-       return components;
+            });
+
+        return components;
     }
 }

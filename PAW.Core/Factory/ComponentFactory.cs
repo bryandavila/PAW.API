@@ -1,29 +1,26 @@
-﻿using PAW.Models.Products;
+﻿using ComponentModel = PAW.Models.Components.Component;
 
-namespace PAW.Business.Factory
+public class ComponentFactory
 {
-    public class ComponentFactory
+    public ComponentModel CreateComponent<T>() where T : ComponentModel, new()
     {
-        public Component CreateComponent<T>() where T : Component, new()
-        {
-            return new T();
-        }
+        return new T();
+    }
 
-        public ComponentFactory SetProperty(Component component, string url, IEnumerable<Component> items)
-        {
-            component.Url = url;
-            component.Data = items;
-            return this;
-        }
+    public ComponentFactory SetProperty(ComponentModel component, string url, IEnumerable<ComponentModel> items)
+    {
+        component.Url = url;
+        component.Data = items;
+        return this;
+    }
 
-        public ComponentFactory SetProperty2()
-        {
-            return this;
-        }
+    public ComponentFactory SetProperty2()
+    {
+        return this;
+    }
 
-        public ComponentFactory SetProperty3()
-        {
-            return this;
-        }
+    public ComponentFactory SetProperty3()
+    {
+        return this;
     }
 }

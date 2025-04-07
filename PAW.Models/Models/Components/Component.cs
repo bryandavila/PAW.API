@@ -8,6 +8,7 @@ namespace PAW.Models.Components;
 
 public class Component : ComponentBase
 {
+    public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
 }
 

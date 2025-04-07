@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Bogus;
 using PAW.Models.Products;
+using PAW.Services.Factory;
 
 
-namespace PAW.Business.Factory
-{
+namespace PAW.Services.Factory;
+
     public class ProductFactory
     {
         private readonly Faker<Product> _faker;
@@ -33,5 +34,5 @@ namespace PAW.Business.Factory
             return _faker.Generate(count);
         }
     }
-}
+
 
