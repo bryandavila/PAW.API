@@ -20,6 +20,8 @@
 
 <div id="partialContainer"></div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     document.getElementById('generateVanilla').addEventListener('click', function () {
         fetch('/ProductGen/GenerateProducts', {
@@ -37,7 +39,11 @@
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ count: 5 }),
-            success: updateTable
+            success: updateTable,
+            error: function (xhr, status, error) {
+                console.error("Error en la solicitud AJAX:", error);
+                alert("Error al generar productos con AJAX");
+            }
         });
     });
 

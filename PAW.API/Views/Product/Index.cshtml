@@ -11,7 +11,7 @@
 @section Scripts {
     <script>
         document.getElementById("loadProducts").addEventListener("click", function () {
-            fetch("/ProductGen/GetFivePartial")
+            fetch("/Product/GetFivePartial")
                 .then(res => {
                     if (!res.ok) {
                         throw new Error("Error en la solicitud: " + res.status);

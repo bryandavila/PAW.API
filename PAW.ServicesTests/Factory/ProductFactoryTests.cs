@@ -14,9 +14,10 @@ namespace PAW.ServicesTests.Factory
             var product = factory.CreateOne();
 
             Assert.NotNull(product);
-            Assert.False(string.IsNullOrWhiteSpace(product.Name));
+            Assert.False(string.IsNullOrWhiteSpace(product.ProductName));
             Assert.True(product.UnitPrice > 0);
         }
+
 
         [Fact]
         public void CreateMany_ShouldReturnExactCount()
