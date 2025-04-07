@@ -24,7 +24,7 @@ namespace PAW.Services.Factory;
                 .RuleFor(p => p.CategoryId, f => f.Random.Int(1, 5));
         }
 
-        public Product Create()
+        public Product CreateOne()
         {
             return _faker.Generate();
         }

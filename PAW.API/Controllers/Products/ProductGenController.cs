@@ -1,29 +1,38 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PAW.Models.Products;
 using PAW.Services;
-using PAW.Models.Products;
 
-namespace PAW.API.Controllers.Products
+namespace PAW.API.Controllers.Products;
+
+public class ProductGenController : Controller
 {
-    public class ProductGenController : Controller
+    private readonly IProductGenerationService _productGenerationService;
+    private readonly IProductService _productService;
+
+    public ProductGenController(
+        IProductGenerationService productGenerationService,
+        IProductService productService)
     {
-        private readonly IProductGenerationService _productGenerationService;
+        _productGenerationService = productGenerationService;
+        _productService = productService;
+    }
 
-        public ProductGenController(IProductGenerationService productGenerationService)
-        {
-            _productGenerationService = productGenerationService;
-        }
+    public IActionResult Index()
+    {
+        return View();
+    }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+    [HttpPost]
+    public IActionResult GenerateProducts(int count = 5)
+    {
+        var products = _productGenerationService.Generate(count);
+        return Json(products);
+    }
 
-        [HttpPost]
-        public IActionResult GenerateProducts(int count = 5)
-        {
-            var products = _productGenerationService.Generate(count);
-            return Json(products);
-        }
+    [HttpGet]
+    public async Task<IActionResult> GetFivePartial()
+    {
+        var products = await _productService.GetFiveFromFactoryAsync();
+        return PartialView("_ProductTablePartial", products);
     }
 }

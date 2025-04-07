@@ -17,6 +17,7 @@ builder.Services.AddScoped<IApprovalHandler<HandlerBase>, ArchivedHandler>();
 builder.Services.AddScoped<IApprovalHandler<HandlerBase>, InProgressHandler>();
 builder.Services.AddScoped<ITicketApprovalProcess, TicketApprovalProcess>();
 builder.Services.AddScoped<IProductGenerationService, ProductGenerationService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IComponentRepository, ComponentRepository>();

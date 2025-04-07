@@ -4,6 +4,7 @@
 
 <button id="generateVanilla">Generar con JS Vanilla</button>
 <button id="generateAjax">Generar con Ajax</button>
+<button id="loadPartial">Cargar Partial View</button>
 
 <table id="productsTable" border="1">
     <thead>
@@ -15,48 +16,57 @@
         </tr>
     </thead>
     <tbody>
-        <!-- Los productos generados se agregarán aquí -->
     </tbody>
 </table>
 
-<script>
-    document.getElementById('generateVanilla').addEventListener('click', function () {
-        fetch('/ProductGen/GenerateProducts', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ count: 5 })
-        })
-        .then(response => response.json())
-        .then(data => {
-            updateTable(data);
-        });
-    });
+<div id="partialContainer" class="mt-4"></div>
 
-    document.getElementById('generateAjax').addEventListener('click', function () {
-        $.ajax({
-            url: '/ProductGen/GenerateProducts',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ count: 5 }),
-            success: function (data) {
-                updateTable(data);
-            }
-        });
-    });
+@section Scripts {
+    <script>
+        function updateTable(products) {
+            const tbody = document.querySelector('#productsTable tbody');
+            tbody.innerHTML = '';
+            products.forEach(product => {
+                const row = `<tr>
+                    <td>${product.productId}</td>
+                    <td>${product.productName}</td>
+                    <td>${product.description}</td>
+                    <td>${product.unitPrice}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+        }
 
-    function updateTable(products) {
-        const tbody = document.querySelector('#productsTable tbody');
-        tbody.innerHTML = '';
-        products.forEach(product => {
-            const row = `<tr>
-                <td>${product.id}</td>
-                <td>${product.name}</td>
-                <td>${product.description}</td>
-                <td>${product.price}</td>
-            </tr>`;
-            tbody.innerHTML += row;
+        document.getElementById('generateVanilla').addEventListener('click', function () {
+            fetch('/ProductGen/GenerateProducts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ count: 5 })
+            })
+                .then(response => response.json())
+                .then(data => updateTable(data));
         });
-    }
-</script>
+
+        document.getElementById('generateAjax').addEventListener('click', function () {
+            $.ajax({
+                url: '/ProductGen/GenerateProducts',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ count: 5 }),
+                success: function (data) {
+                    updateTable(data);
+                }
+            });
+        });
+
+        document.getElementById('loadPartial').addEventListener('click', function () {
+            fetch('/ProductGen/GetFivePartial')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('partialContainer').innerHTML = html;
+                });
+        });
+    </script>
+}
